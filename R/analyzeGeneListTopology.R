@@ -319,12 +319,12 @@ analyzeGenesetTopology <-  function(genesOfInterest,
     resList[["variantGenesHeatmap_Top_MAT"]] <- topVarMat
 
     if (! returnDataOnly) {
-      grDevices::pdf(filename = file.path(outputPrefix, "VarGeneHeatmap.pdf"),
-          height = height, width = width, units = "in", res = 300)
+      grDevices::pdf(file = file.path(outputPrefix, "VarGeneHeatmap.pdf"),
+          height = height, width = width, units = "in", res = 300, family = "Arial")
       print(topVarHeat)
       grDevices::dev.off()
-      grDevices::pdf(filename = file.path(outputPrefix, "VarGeneHeatmap_top.pdf"),
-          height = height, width = width, units = "in", res = 300)
+      grDevices::pdf(file = file.path(outputPrefix, "VarGeneHeatmap_top.pdf"),
+          height = height, width = width, units = "in", res = 300, family = "Arial")
       print(topVarHeattop)
       grDevices::dev.off()
       if (pathwayEnrichment) {
@@ -333,7 +333,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                   row.names = FALSE)
         ggplot2::ggsave(plot = dp,
                         filename = file.path(outputPrefix, "variantGenes.Pathway.Analysis.pdf"),
-                        height = 7, width = 10)
+                        height = 7, width = 10, device = 'pdf', family = 'Arial')
       }
 
 
@@ -411,10 +411,10 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                   row.names = FALSE)
         ggplot2::ggsave(plot = dp,
                         filename = file.path(outputPrefix, "coCorrelativeGenes.Pathway.Analysis.pdf"),
-                        height = 7, width = 10)
+                        height = 7, width = 10, device = 'pdf', family = 'Arial')
       }
-      grDevices::pdf(filename = file.path(outputPrefix, "coCorrelativeGeneHeatmap.pdf"),
-          height = height, width = width, units = "in", res = 300)
+      grDevices::pdf(file = file.path(outputPrefix, "coCorrelativeGeneHeatmap.pdf"),
+          height = height, width = width, units = "in", res = 300, family = "Arial")
       print(cocorheatmap)
       grDevices::dev.off()
     }
@@ -454,7 +454,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
 
     if (! returnDataOnly) {
       ggplot2::ggsave(plt1, file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
-             height = 6, width = 7)
+             height = 6, width = 7, device = 'pdf', family = 'Arial')
     }
 
   } else if ("PCA" %in% crossComparisonType & (length(intGenes) <= 100 || ! alternativeTSNE)) {
@@ -510,7 +510,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
 
     if (! returnDataOnly) {
       ggplot2::ggsave(plt1, file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
-                      height = 6, width = 7)
+                      height = 6, width = 7, device = 'pdf', family = 'Arial')
     }
 
 
@@ -546,7 +546,7 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
     resList[["TSNE_data"]] <- info.norm
 
     if (! returnDataOnly) {
-      ggplot2::ggsave(plot = gp, filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"))
+      ggplot2::ggsave(plot = gp, filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"), device = 'pdf', family = 'Arial')
       # Save clustering info
       utils::write.csv(info.norm, file = file.path(outputPrefix, "geneClusterData.TSNE.csv"), row.names = FALSE)
 
@@ -576,7 +576,7 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
                 row.names = FALSE)
       ggplot2::ggsave(plot = dp,
                       filename = file.path(outputPrefix, "inputGenes.Pathway.Analysis.pdf"),
-                      height = 7, width = 10)
+                      height = 7, width = 10, device = 'pdf', family = 'Arial')
     }
   }
   return(resList)
