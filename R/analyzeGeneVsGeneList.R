@@ -384,7 +384,7 @@ geneVsGeneListAnalyze <- function(pairedGenesList,
     his <- his + ggplot2::theme(text = ggplot2::element_text(size = 10))
     if (! returnDataOnly) {
       ggplot2::ggsave(plot = his, width = 8, height = 5, filename = file.path(geneOutDir,
-                                                       paste0(gene, ".png")))
+                                                       paste0(gene, ".pdf")))
     }
 
     names(res) <- secondaryGenes
@@ -486,13 +486,13 @@ geneVsGeneListAnalyze <- function(pairedGenesList,
       # Plot if not returnDataOnly
       if (! returnDataOnly) {
         ggplot2::ggsave(plot = pMeans, filename = file.path(geneOutDir,
-                                                      paste0(gene, ".bootstrapped_means.png")),
+                                                      paste0(gene, ".bootstrapped_means.pdf")),
                         width = 8, height = 5)
         ggplot2::ggsave(plot = pMedians, filename = file.path(geneOutDir,
-                                                            paste0(gene, ".bootstrapped_medians.png")),
+                                                            paste0(gene, ".bootstrapped_medians.pdf")),
                         width =8, height = 5)
         ggplot2::ggsave(plot = pTtest, filename = file.path(geneOutDir,
-                                                            paste0(gene, ".bootstrapped_TTest_PVals.png")),
+                                                            paste0(gene, ".bootstrapped_TTest_PVals.pdf")),
                         width = 8, height = 5)
       }
     }

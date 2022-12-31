@@ -176,7 +176,7 @@ myGSEA <- function(ranks,
     resList[["GSEA_up"]] <- gaUP
     if (! returnDataOnly) {
       ggplot2::ggsave(plot = gaUP,
-                      filename = file.path(outDir, paste0(plotFile, "_topPathwaysUP.png")),
+                      filename = file.path(outDir, paste0(plotFile, "_topPathwaysUP.pdf")),
                       height = 14, width = 20)
     }
 
@@ -191,7 +191,7 @@ myGSEA <- function(ranks,
 
     if (! returnDataOnly) {
       ggplot2::ggsave(plot = gaDOWN,
-                      filename = file.path(outDir, paste0(plotFile, "_topPathwaysDOWN.png")),
+                      filename = file.path(outDir, paste0(plotFile, "_topPathwaysDOWN.pdf")),
                       height = 14, width = 20)
     }
     resList[["GSEA_down"]] <- gaDOWN
