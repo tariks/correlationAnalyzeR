@@ -124,6 +124,10 @@ analyzeGenesetTopology <-  function(genesOfInterest,
 
 
   Species = "hsapiens"
+  
+  # load fonts
+  library(extrafont)
+
 
   if (! is.null(pool)) {
     if (! pool$valid) {
@@ -326,10 +330,12 @@ analyzeGenesetTopology <-  function(genesOfInterest,
           height = height, width = width, family = family)
       print(topVarHeat)
       grDevices::dev.off()
+      extrafont::embed_fonts(outputPrefix, "VarGeneHeatmap.pdf")
       grDevices::pdf(file = file.path(outputPrefix, "VarGeneHeatmap_top.pdf"),
           height = height, width = width, family = family)
       print(topVarHeattop)
       grDevices::dev.off()
+      extrafont::embed_fonts( file.path(outputPrefix, "VarGeneHeatmap_top.pdf"))
       if (pathwayEnrichment) {
         utils::write.csv(eres,
                   file = file.path(outputPrefix, "variantGenes.Pathway.Analysis.csv"),
@@ -338,6 +344,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                         height = 7, width = 10, family = family)
 	print(dp)
         grDevices::dev.off()
+      extrafont::embed_fonts( file.path(outputPrefix, "variantGenes.Pathway.Analysis.pdf"))
       }
 
 
@@ -417,11 +424,13 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                         height = 7, width = 10, family = family)
 	print(dp)
 	grDevices::dev.off()
+        extrafont::embed_fonts( file.path(outputPrefix, "coCorrelativeGenes.Pathway.Analysis.pdf"))
       }
       grDevices::pdf(file = file.path(outputPrefix, "coCorrelativeGeneHeatmap.pdf"),
           height = height, width = width, family = family)
       print(cocorheatmap)
       grDevices::dev.off()
+      extrafont::embed_fonts( file.path(outputPrefix, "coCorrelativeGeneHeatmap.pdf"))
     }
   }
   # Set up for topological distance analysis
@@ -462,6 +471,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
              height = 6, width = 7, family = family)
       print(plt1)
       grDevices::dev.off()
+      extrafont::embed_fonts( file.path(outputPrefix, "geneCorrelationData.PCA.pdf"))
     }
 
   } else if ("PCA" %in% crossComparisonType & (length(intGenes) <= 100 || ! alternativeTSNE)) {
@@ -520,6 +530,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                       height = 6, width = 7, family = family)
       print(plt1)
       grDevices::dev.off()
+      extrafont::embed_fonts( file.path(outputPrefix, "geneCorrelationData.PCA.pdf"))
     }
 
 
@@ -555,9 +566,11 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
     resList[["TSNE_data"]] <- info.norm
 
     if (! returnDataOnly) {
-      grDevices::pdf( filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"), family = family)
+      grDevices::pdf( filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"),
+		     family = family)
       print(gp)
       grDevices::dev.off()
+      extrafont::embed_fonts( file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"))
       # Save clustering info
       utils::write.csv(info.norm, file = file.path(outputPrefix, "geneClusterData.TSNE.csv"), row.names = FALSE)
 
@@ -589,6 +602,7 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
                       height = 7, width = 10, family = family)
       print(dp)
       grDevices::dev.off()
+      extrafont::embed_fonts( file.path(outputPrefix, "inputGenes.Pathway.Analysis.pdf"))
     }
   }
   return(resList)
