@@ -46,6 +46,7 @@
 #' @param makePool Logical. Should a pool be created if one is not supplied? Default: FALSE.
 #' @param outputPrefix Prefix for saved files. Should include directory info.
 #' Ignored if returnDataOnly = TRUE. Default: "CorrelationAnalyzeR_Output"
+#' @param family the font family name to use in figures. See ?pdf for details. Default "sans" 
 #' @return A list of correlations for input genes, and the results of chosen analysis + visualizations.
 #'
 #' @examples
@@ -96,7 +97,8 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                                     outputPrefix = "CorrelationAnalyzeR_Output",
                                     returnDataOnly = TRUE,
                                     pool = NULL,
-                                    makePool = FALSE) {
+                                    makePool = FALSE,
+				    family = "sans") {
 
 
   # pool::poolClose(pool)
@@ -320,11 +322,11 @@ analyzeGenesetTopology <-  function(genesOfInterest,
 
     if (! returnDataOnly) {
       grDevices::pdf(file = file.path(outputPrefix, "VarGeneHeatmap.pdf"),
-          height = height, width = width, family = "mono")
+          height = height, width = width, family = family)
       print(topVarHeat)
       grDevices::dev.off()
       grDevices::pdf(file = file.path(outputPrefix, "VarGeneHeatmap_top.pdf"),
-          height = height, width = width, family = "mono")
+          height = height, width = width, family = family)
       print(topVarHeattop)
       grDevices::dev.off()
       if (pathwayEnrichment) {
@@ -333,7 +335,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                   row.names = FALSE)
         ggplot2::ggsave(plot = dp,
                         filename = file.path(outputPrefix, "variantGenes.Pathway.Analysis.pdf"),
-                        height = 7, width = 10, device = 'pdf', family = 'mono')
+                        height = 7, width = 10, device = 'pdf', family = family)
       }
 
 
@@ -411,10 +413,10 @@ analyzeGenesetTopology <-  function(genesOfInterest,
                   row.names = FALSE)
         ggplot2::ggsave(plot = dp,
                         filename = file.path(outputPrefix, "coCorrelativeGenes.Pathway.Analysis.pdf"),
-                        height = 7, width = 10, device = 'pdf', family = 'mono')
+                        height = 7, width = 10, device = 'pdf', family = family)
       }
       grDevices::pdf(file = file.path(outputPrefix, "coCorrelativeGeneHeatmap.pdf"),
-          height = height, width = width, family = "mono")
+          height = height, width = width, family = family)
       print(cocorheatmap)
       grDevices::dev.off()
     }
@@ -454,7 +456,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
 
     if (! returnDataOnly) {
       ggplot2::ggsave(plt1, file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
-             height = 6, width = 7, device = 'pdf', family = 'mono')
+             height = 6, width = 7, device = 'pdf', family = family)
     }
 
   } else if ("PCA" %in% crossComparisonType & (length(intGenes) <= 100 || ! alternativeTSNE)) {
@@ -510,7 +512,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
 
     if (! returnDataOnly) {
       ggplot2::ggsave(plt1, file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
-                      height = 6, width = 7, device = 'pdf', family = 'mono')
+                      height = 6, width = 7, device = 'pdf', family = family)
     }
 
 
@@ -546,7 +548,7 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
     resList[["TSNE_data"]] <- info.norm
 
     if (! returnDataOnly) {
-      ggplot2::ggsave(plot = gp, filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"), device = 'pdf', family = 'mono')
+      ggplot2::ggsave(plot = gp, filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"), device = 'pdf', family = family)
       # Save clustering info
       utils::write.csv(info.norm, file = file.path(outputPrefix, "geneClusterData.TSNE.csv"), row.names = FALSE)
 
@@ -576,7 +578,7 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
                 row.names = FALSE)
       ggplot2::ggsave(plot = dp,
                       filename = file.path(outputPrefix, "inputGenes.Pathway.Analysis.pdf"),
-                      height = 7, width = 10, device = 'pdf', family = 'mono')
+                      height = 7, width = 10, device = 'pdf', family = family)
     }
   }
   return(resList)
