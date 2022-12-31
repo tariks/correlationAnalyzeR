@@ -119,6 +119,7 @@ analyzeGenesetTopology <-  function(genesOfInterest,
   # Sample_Type = c("normal")
   # makePool = FALSE
   # Species = c("hsapiens")
+  # family = "sans"
 
 
 
@@ -333,9 +334,10 @@ analyzeGenesetTopology <-  function(genesOfInterest,
         utils::write.csv(eres,
                   file = file.path(outputPrefix, "variantGenes.Pathway.Analysis.csv"),
                   row.names = FALSE)
-        ggplot2::ggsave(plot = dp,
-                        filename = file.path(outputPrefix, "variantGenes.Pathway.Analysis.pdf"),
-                        height = 7, width = 10, device = 'pdf', family = family)
+        grDevices::pdf(filename = file.path(outputPrefix, "variantGenes.Pathway.Analysis.pdf"),
+                        height = 7, width = 10, family = family)
+	print(dp)
+        grDevices::dev.off()
       }
 
 
@@ -411,9 +413,10 @@ analyzeGenesetTopology <-  function(genesOfInterest,
         utils::write.csv(eres,
                   file = file.path(outputPrefix, "coCorrelativeGenes.Pathway.Analysis.csv"),
                   row.names = FALSE)
-        ggplot2::ggsave(plot = dp,
-                        filename = file.path(outputPrefix, "coCorrelativeGenes.Pathway.Analysis.pdf"),
-                        height = 7, width = 10, device = 'pdf', family = family)
+        grDevices::pdf(filename = file.path(outputPrefix, "coCorrelativeGenes.Pathway.Analysis.pdf"),
+                        height = 7, width = 10, family = family)
+	print(dp)
+	grDevices::dev.off()
       }
       grDevices::pdf(file = file.path(outputPrefix, "coCorrelativeGeneHeatmap.pdf"),
           height = height, width = width, family = family)
@@ -455,8 +458,10 @@ analyzeGenesetTopology <-  function(genesOfInterest,
     resList[["clustered"]] <- F
 
     if (! returnDataOnly) {
-      ggplot2::ggsave(plt1, file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
-             height = 6, width = 7, device = 'pdf', family = family)
+      grDevices::pdf(file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
+             height = 6, width = 7, family = family)
+      print(plt1)
+      grDevices::dev.off()
     }
 
   } else if ("PCA" %in% crossComparisonType & (length(intGenes) <= 100 || ! alternativeTSNE)) {
@@ -511,8 +516,10 @@ analyzeGenesetTopology <-  function(genesOfInterest,
     resList[["clustered"]] <- T
 
     if (! returnDataOnly) {
-      ggplot2::ggsave(plt1, file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
-                      height = 6, width = 7, device = 'pdf', family = family)
+      grDevices::pdf(file = file.path(outputPrefix, "geneCorrelationData.PCA.pdf"),
+                      height = 6, width = 7, family = family)
+      print(plt1)
+      grDevices::dev.off()
     }
 
 
@@ -548,7 +555,9 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
     resList[["TSNE_data"]] <- info.norm
 
     if (! returnDataOnly) {
-      ggplot2::ggsave(plot = gp, filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"), device = 'pdf', family = family)
+      grDevices::pdf( filename = file.path(outputPrefix, "geneCorrelationData.TSNE.pdf"), family = family)
+      print(gp)
+      grDevices::dev.off()
       # Save clustering info
       utils::write.csv(info.norm, file = file.path(outputPrefix, "geneClusterData.TSNE.csv"), row.names = FALSE)
 
@@ -576,9 +585,10 @@ To disable this behavior, set 'alternativeTSNE' to FALSE")
       utils::write.csv(eres,
                 file = file.path(outputPrefix, "inputGenes.Pathway.Analysis.csv"),
                 row.names = FALSE)
-      ggplot2::ggsave(plot = dp,
-                      filename = file.path(outputPrefix, "inputGenes.Pathway.Analysis.pdf"),
-                      height = 7, width = 10, device = 'pdf', family = family)
+      grDevices::pdf(filename = file.path(outputPrefix, "inputGenes.Pathway.Analysis.pdf"),
+                      height = 7, width = 10, family = family)
+      print(dp)
+      grDevices::dev.off()
     }
   }
   return(resList)

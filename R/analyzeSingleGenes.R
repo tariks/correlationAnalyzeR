@@ -506,7 +506,7 @@ analyzeSingleGenes <- function(genesOfInterest,
     resList[[geneOneTitle]][["corrHist"]] <- p
     if (! returnDataOnly) {
       ggplot2::ggsave(filename = file.path(geneOutDir,
-                                           paste0(geneOneTitleFile, ".png")),
+                                           paste0(geneOneTitleFile, ".pdf")),
                       plot = p)
     }
 
